@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Acceuil de la billeterie
+{% endblock %}
+
+
+{% block body %}
+	<main class="container">
+		<section class="row">
+			{% if  app.user.roles is defined and app.user.roles[0] == 'ROLE_ADMIN' %}
+				<a href="{{path('categories_ajout')}}" class="btn btn-primary my-3">Ajouter des catégories</a>
+			{% endif %}
+			<h1>Liste des catégories</h1>
+			{% for categorie in categories %}
+				<div class="col-3 mb-3 my-3">
+					<article class="card h-100">
+						<div class="card-body">
+							<h2 class="card-title">{{ categorie.libelle }}</h2>
+							<p class="card-text">{{ categorie.description }}</p>
+							<a href="{{path('categories_list', {slug: categorie.slug})}}" class="btn btn-primary">Voir</a>
+							{% if app.user.roles is defined and app.user.roles[0] == 'ROLE_ADMIN' %}
+								<a href="#" class="btn btn-dark">Supprimer</a>
+							{% endif %}
+						</div>
+					</article>
+				</div>
+			{% endfor %}
+		</section>
+	</main>
+{% endblock %}

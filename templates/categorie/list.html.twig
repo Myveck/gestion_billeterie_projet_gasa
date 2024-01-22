@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des événements de la catégorie
+	{{ categorie.libelle }}
+{% endblock %}
+
+
+{% block body %}
+	<main class="container">
+		<section class="row">
+			{% if  app.user.roles is defined and app.user.roles[0] == 'ROLE_ADMIN' %}
+				<a href="{{path('evenements_ajout')}}" class="btn btn-primary my-3">Ajouter des événements</a>
+			{% endif %}
+			<h1>Liste des événements de la catégorie
+				{{ categorie.libelle }}</h1>
+			{% for evenement in categorie.evenements %}
+				<div class="col-3 mb-3 my-3">
+					<article class="card h-100">
+						<div class="card-body">
+							<h2 class="card-title">{{ evenement.libelle }}</h2>
+							<p class="card-text">{{ evenement.description }}</p>
+							<a href="{{path('evenements_details', {slug: evenement.slug})}}" class="btn btn-primary">Détails</a>
+							{% if app.user.roles is defined and app.user.roles[0] == 'ROLE_ADMIN' %}
+								<a href="#" class="btn btn-dark">Supprimer</a>
+							{% endif %}
+						</div>
+					</article>
+				</div>
+			{% endfor %}
+		</section>
+	</main>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AcceuilController!
+{% endblock %}
+
+
+{% block body %}
+	<main class="container">
+		<section class="row">
+			{% if utilisateur == 'admin' %}
+				<a href="#" class="btn btn-primary my-3">Ajouter des événements</a>
+			{% endif %}
+			<h1>Liste des événements de a</h1>
+			{% for i in 0..7 %}
+				<div class="col-3 mb-3 my-3">
+					<article class="card h-100">
+						<div class="card-body">
+							<h2 class="card-title">Un événement</h2>
+							<p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad ut ea illo, nisi laudantium saepe nostrum ipsa nam magnam. Maxime?</p>
+							<a href="#" class="btn btn-primary">Détails</a>
+						</div>
+					</article>
+				</div>
+			{% endfor %}
+		</section>
+	</main>
+{% endblock %}

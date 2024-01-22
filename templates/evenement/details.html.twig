@@ -1,0 +1,59 @@
+{% include "base.html.twig" %}
+
+{% block body %}
+	<main class="container">
+		<section class="row">
+			<div class="col-12">
+				<h1>
+					<strong>Evénement :
+					</strong>
+					{{ evenement.libelle }}
+				</h1>
+			</div>
+			<div class="col-6">
+				<img src="{{ asset('assets/uploads/')}}">
+				Images
+			</div>
+			<div class="col-6">
+				<p>{{evenement.description}}</p>
+				<p>
+					<strong>Categorie :</strong>
+					{{evenement.categorie.libelle}}
+				</p>
+				<p>
+					<strong>Prix :</strong>
+					<br>Normal :
+					{{evenement.prixN}}
+					{% if evenement.prixSV > 0 %}
+						<br>Semi-Vip :
+						{{evenement.prixSV}}
+					{% endif %}
+
+					<br>VIP :
+					{{evenement.prixV}}
+				</p>
+				<p>
+					<strong>Date :</strong>
+					{{evenement.dateE|date('d/m/Y H:i')}}
+				</p>
+				{% if evenement.places > 0 %}
+					<strong>Acheter</strong>
+					<br>
+					{% if evenement.prixV != 0 %}
+						<a href="{{path('achat_ajouter', {id: evenement.id, prix: 'prixV'})}}" class="btn btn-success">VIP</a>
+					{% endif %}
+					{% if evenement.prixSV != 0 %}
+						<a href="{{path('achat_ajouter', {id: evenement.id, prix: 'prixSV'})}}" class="btn btn-success">Semi-VIP</a>
+					{% endif %}
+					{% if evenement.prixN != 0 %}
+						<a href="{{path('achat_ajouter', {id: evenement.id, prix: 'prixN'})}}" class="btn btn-success">Normal</a>
+					{% endif %}
+				{% else %}
+					<p class="text-danger">Toutes les places sont prises</p>
+				{% endif %}
+
+
+			</div>
+		</section>
+	</main>
+{% endblock %}

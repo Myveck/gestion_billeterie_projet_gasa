@@ -1,0 +1,44 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Panier billeterie
+{% endblock %}
+
+{% block body %}
+	<main class="container">
+		<section class="row">
+			<div class="col-12">
+				<h1>Panier</h1>
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Evénement</th>
+							<th>Prix normal</th>
+							<th>Prix Semi-VIP</th>
+							<th>Prix VIP</th>
+							<th>Quantité</th>
+							<th>Total</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for element in data %}
+							<tr>
+								<td>{{element.evenement.libelle}}</td>
+								<td>{{element.evenement.prixN}}</td>
+								<td>{{element.evenement.prixSV}}</td>
+								<td>{{element.evenement.prixV}}</td>
+								<td>{{element.quantite}}</td>
+								<td></td>
+								<td>
+									<a href="" class="btn btn-success">+</a>
+									<a href="" class="btn btn-warning">-</a>
+									<a href="" class="btn btn-danger">supprimer</a>
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</thead>
+			</table>
+		</div>
+	</section>
+</main>{% endblock %}
