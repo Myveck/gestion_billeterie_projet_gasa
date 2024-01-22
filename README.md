@@ -9,9 +9,9 @@ SADIKOU Moutmaïnou	SIL
 KOUSSIHOUEDE Gatien	SIL
 ****************************************** Information sur le projet ******************************************************
 
-Modifier le fichier "env.local" pour les informations sur la base de donnée
+Modifier/créer le fichier "env.local" pour les informations sur la base de donnée
 
-Le projet contient des données fictives en mode --dev. Charger les fixtures pour les utiliser
+Le projet contient des données fictives en mode --dev. Charger les fixtures ainsi que le fakerphp pour les utiliser
 
 Une fois les fixtures chargés, un compte Admin avec les identifiants : email = admin@gmail.com | mot de passe = qwerty sera disponible. Possibilité de modification des identifiants de l'admin dans les versions à venir.
 
