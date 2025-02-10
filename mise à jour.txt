@@ -1,0 +1,68 @@
+
+        } else if ($request->get('requete') == 'central') {
+
+            foreach ($results[0] as $unEleve => $result) {
+                $notesEvaluations[$unEleve]['d1'] = 0;
+                $notesEvaluations[$unEleve]['d2'] = 0;
+                $notesEvaluations[$unEleve]['mi'] = 0;
+                $notesEvaluations[$unEleve]['dh'] = 0;
+                foreach ($result["notesParEvaluation"] as $evals) {
+                    foreach ($evals as $keyV => $eval) {
+                        $notesEvaluations[$unEleve][$keyV] += $eval;
+                    }
+                }
+            }
+            $matiereCount = count($matieres);
+
+            $filename = 'C:/Users/Zixe/Documents/workspace/programming/symfony/amenapp1/public/assets/csv/' . $classe->getNom() . '' . $trimestre . 'csv';
+
+
+
+            $response = new StreamedResponse(function () use ($rangGeneral, $notesEvaluations, $matiereCount, $students, $sommeCoefficients, $results) {
+                $handle = fopen('php://output', 'w');
+
+                fwrite($handle, "\xEF\xBB\xBF");
+
+                // Write the header row
+                fputcsv($handle, ['Noms et Prénoms', 'MI', 'D1', 'D2', 'Coef', 'Moy Gen']);
+
+                // Write data rows
+                foreach ($rangGeneral as $key => $one) {
+                    $mi = $notesEvaluations[$key]["mi"] / $matiereCount;
+                    $d1 = $notesEvaluations[$key]["d1"] / $matiereCount;
+                    $d2 = $notesEvaluations[$key]["d2"] / $matiereCount;
+
+                    fputcsv($handle, [
+                        $students[$key]->getNom() . ' ' . $students[$key]->getPrenom(),
+                        $mi,
+                        $d1,
+                        $d2,
+                        $sommeCoefficients,
+                        $results[0][$key]["moyenneGenerale"]
+                    ]);
+                }
+
+                fclose($handle);
+            });
+
+            $filename = 'export_' . date('Y-m-d') . '.csv';
+
+            // Set headers for the response
+            $response->headers->set('Content-Type', 'text/csv');
+            $response->headers->set('Content-Disposition', 'attachment; filename="' . $filename . '"');
+
+            return $response;
+
+
+            // return $this->render('notes/verif_central.html.twig', [
+            //     'results' => $results[0],
+            //     'ecole' => $ecole,
+            //     'rangGeneral' => $rangGeneral,
+            //     'sommeCoefficients' => $sommeCoefficients,
+            //     'eleves' => $students,
+            //     'classe' => $classe,
+            //     'trimestre' => $trimestre,
+            //     'notesEvaluations' => $notesEvaluations,
+            //     'nb' => $matiereCount
+            // ]);
+        }
